@@ -12,16 +12,12 @@ public class UImanager : MonoBehaviour
     [SerializeField] TMPro.TMP_Text speed;
     int speedint;
     float time;
-    Death playerdeath;
-    bool death;
     string timestring;
     [SerializeField] TMPro.TMP_Text timer;
     // Start is called before the first frame update
     private void Start()
     {
-        time = 0;
-        playerdeath = playerRB.GetComponent<Death>();
-
+        PlayerPrefs.SetFloat("timeatrespawn", 0);
     }
 
     // Update is called once per frame
@@ -32,19 +28,21 @@ public class UImanager : MonoBehaviour
         time += Time.deltaTime;
         timestring = time.ToString();
         timer.text = "Time:" + timestring[0] + timestring[1] + timestring[2] + timestring[3];
-        if (playerdeath.Hasdiedcheck())
+        if (playerRB.gameObject.GetComponent<Death>().Hasdiedcheck())
         {
-            
-            time = 0;
+            //wie fixxe ich das
+            time = 0+PlayerPrefs.GetFloat("timeatrespawn");
         }
-        
-
     }
     
     public float GetTime()
     {
          return time;
     }
+
+   
+    
+    
     
 }
     
